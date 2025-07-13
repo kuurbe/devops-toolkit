@@ -1,0 +1,20 @@
+name: DevOps Toolkit Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+    - name: Run commit_summary.py
+      run: |
+        pip install requests
+        python commit_summary.py || echo "Script failed"
+
